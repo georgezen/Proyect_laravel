@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserControler;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/triangulo', function () {
+
+    $altura = 4;
+    $base = 3;
+
+    $area = ($base*$altura)/2;
+    return $area;
+});
+
+//No olvidarse que asi se llaman los metodos en laravel 8
+Route::get('/plantilla', [UserControler::class,'home']);
+
+

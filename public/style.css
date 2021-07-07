@@ -1,0 +1,26 @@
+.titulo{
+    color: rgb(201, 32, 32);
+}
+
+.impreso{
+    color: rgb(32, 57, 201);
+}
+
+.importe{
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.rellenado1{
+    background-color: #4a1;
+}
+
+.space{
+    margin-right: 3%;
+}
+
+.derecha{
+    float: right;
+}
