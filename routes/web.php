@@ -27,6 +27,10 @@ Route::get('/triangulo', function () {
 });
 
 //No olvidarse que asi se llaman los metodos en laravel 8
-Route::get('/plantilla', [UserControler::class,'home']);
+//Route::get('/plantilla', [UserControler::class,'home']);
+Route::get('/user', [UserControler::class,'get_users']);
+
+Route::get('/get_user',[UserControler::class,'obtener_usuario'] );
+Route::post('/save', [UserControler::class,'save']);
 
 
