@@ -4,6 +4,8 @@
    
     <div class="row">
       <div class="col-md-12">
+          <form autocomplete="off" >
+
           
         <label for="" class="label">Nombre</label>
         <input type="text" name="nombre" class="form-control" id="nombre">
@@ -11,7 +13,7 @@
         <input type="text" name="apellidos" class="form-control" id="apellidos">
         
         <input type="button" id="save" value="Guardar" class="btn btn-success">
-        
+      </form>
       </div>
     </div>
 
@@ -19,11 +21,11 @@
         <div class="col-md-12">
             @include('plantilla.table')
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <nav aria-label="Page navigation example" >
+            <ul class="pagination pagina_num">
+             
               
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              
             </ul>
           </nav>
        

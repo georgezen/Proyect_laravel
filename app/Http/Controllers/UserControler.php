@@ -7,23 +7,7 @@ use App\Models\Usuario  as Usuario;
 
 class UserControler extends Controller
 {
-   /*  public function home()
-   {
-        $texto = array('hola',2,3,'rere');
-        $putita = "hola pinche putita";
-        $importe = 0;
-        if ($putita == "hola pinche putita") {
-            $importe = "Vas a pagar importe de ".(11 + 7);
-        } else {
-            $importe = "Vas a pagar solo 11 pesos";
-        }
-        
-
-        return view('plantilla.index')
-        ->with('texto',$texto)
-        ->with('putita',$putita)
-        ->with('importe',$importe);
-   } */
+  
 
    public function get_users()
    {
@@ -32,7 +16,12 @@ class UserControler extends Controller
 
    public function save(Request $request)
    {
-       $nombre = $request->input('nombre');
+    $nombre = $request->input('nombre');
+    $usuario = new Usuario();
+       $usuario->nombre = $request->input('nombre');
+       $usuario->apellidos = $request->input('apellido');
+
+       $usuario->save();
 
        return response()->json($nombre);
    }
@@ -40,7 +29,7 @@ class UserControler extends Controller
    public function obtener_usuario(){
 
     $usuario = new Usuario();
-       $usuarios = $usuario->all();
+    $usuarios = $usuario->all();
 
     return response()->json($usuarios);
 
