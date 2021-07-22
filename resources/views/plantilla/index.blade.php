@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
           <form autocomplete="off" >
-
+            <input type="hidden" name="id_usuario" id="id_usuario" value="">
           
         <label for="" class="label">Nombre</label>
         <input type="text" name="nombre" class="form-control" id="nombre">

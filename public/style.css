@@ -28,3 +28,16 @@
 #rola{
     text-align: center;
 }
+
+.delete{
+    color:#fff;
+    background-color: #f44;
+    border: 1px solid #f44;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.delete:hover{
+    color:#fff;
+    background-color: rgb(202, 17, 17);
+}
