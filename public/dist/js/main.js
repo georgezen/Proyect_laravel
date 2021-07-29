@@ -4,6 +4,7 @@ const nombre = document.querySelector("#nombre");
 const apellido = document.querySelector("#apellidos");
 const id_user = document.querySelector("#id_usuario");
 const save = document.querySelector("#save");
+const search = document.querySelector("#search");
 
 window.onload = function () {
     init();
@@ -13,59 +14,63 @@ function init() {
     get_data(1);
 }
 
-function get_data(pagina) {
-    let fila;
+function get_data(pagina,search = "") {
+
+    fetch("http://localhost/Proyect_laravel/public/get_user/"+search)
+        .then((response) => response.json())
+        .then((json) => {
+            print_tbody(json,pagina);
+        });
+}
+
+//funcion para pintar la tabla
+function print_tbody(json,pagina){
     let page = pagina,
         rows_for_page = 3;
     page--;
     document.querySelector(".body").innerHTML = "";
+    let start = rows_for_page * page;
+    let end = start + rows_for_page;
+    let paginados = json.slice(start, end);
 
-    fetch("http://localhost/Proyect_laravel/public/get_user")
-        .then((response) => response.json())
-        .then((json) => {
-            let start = rows_for_page * page;
-            let end = start + rows_for_page;
-            let paginados = json.slice(start, end);
+    for (let i = 0; i < paginados.length; i++) {
+        let tr = document.createElement("tr");
+        let td1 = document.createElement("td");
+        td1.innerText = paginados[i].id_usuario;
+        let td2 = document.createElement("td");
+        td2.innerText = paginados[i].nombre;
+        let td3 = document.createElement("td");
+        td3.innerText = paginados[i].apellidos;
 
-            for (let i = 0; i < paginados.length; i++) {
-                let tr = document.createElement("tr");
-                let td1 = document.createElement("td");
-                td1.innerText = paginados[i].id_usuario;
-                let td2 = document.createElement("td");
-                td2.innerText = paginados[i].nombre;
-                let td3 = document.createElement("td");
-                td3.innerText = paginados[i].apellidos;
+        let td4 = document.createElement("td");
+        //seccion para creacion de boton de edicion
+        let btn_edit = document.createElement("button");
+        btn_edit.classList.add("btn", "btn-success", "edit");
+        btn_edit.innerText = "Editar";
+        btn_edit.onclick = function (e) {
+            e.preventDefault();
+            get_user(paginados[i].id_usuario);
+        };
+        //Seccion para boton de eliminacion de usuario
+        let btn_delete = document.createElement("button");
+        btn_delete.classList.add("btn", "delete");
+        btn_delete.innerText = "Eliminar";
+        btn_delete.onclick = function (e) {
+            e.preventDefault();
+            delete_user(paginados[i].id_usuario);
+        };
+        td4.appendChild(btn_edit);
+        td4.appendChild(btn_delete);
 
-                let td4 = document.createElement("td");
-                //seccion para creacion de boton de edicion
-                let btn_edit = document.createElement("button");
-                btn_edit.classList.add("btn", "btn-success", "edit");
-                btn_edit.innerText = "Editar";
-                btn_edit.onclick = function (e) {
-                    e.preventDefault();
-                    get_user(paginados[i].id_usuario);
-                };
-                //Seccion para boton de eliminacion de usuario
-                let btn_delete = document.createElement("button");
-                btn_delete.classList.add("btn", "delete");
-                btn_delete.innerText = "Eliminar";
-                btn_delete.onclick = function (e) {
-                    e.preventDefault();
-                    delete_user(paginados[i].id_usuario);
-                };
-                td4.appendChild(btn_edit);
-                td4.appendChild(btn_delete);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
 
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                tr.appendChild(td4);
+        document.querySelector(".body").appendChild(tr);
+    }
 
-                document.querySelector(".body").appendChild(tr);
-            }
-
-            setup_paginacion(json, rows_for_page, page);
-        });
+    setup_paginacion(json, rows_for_page, page);
 }
 
 //funcion para obtener el total de paginas que se van a crear
@@ -97,7 +102,8 @@ function generar_boton(page) {
 
     enlace2.addEventListener("click", function (e) {
         e.preventDefault();
-        get_data(page);
+        let search_value = document.querySelector("#search_val").value;
+        get_data(page,search_value);
     });
 
     return enlace2;
@@ -130,7 +136,7 @@ save.addEventListener("click", () => {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json);
+            
             get_data(1);
             clean_form();
         })
@@ -140,11 +146,11 @@ save.addEventListener("click", () => {
 });
 
 function get_user(id_usuario) {
-    console.log(id_usuario);
+    
     fetch("http://localhost/Proyect_laravel/public/get_user_edit/" + id_usuario)
         .then((response) => response.json())
         .then((json) => {
-            console.log(json);
+            
 
             nombre.value = json.nombre;
             apellido.value = json.apellidos;
@@ -159,11 +165,12 @@ function clean_form() {
     nombre.value = "";
     apellido.value = "";
     id_user.value = "";
+    document.querySelector("#search_val").value = "";
 }
 
 
 function delete_user(id) {
-    console.log(id);
+    
     fetch("http://localhost/Proyect_laravel/public/delete/"+id, {
         method: "POST",
         headers: header,
@@ -171,7 +178,7 @@ function delete_user(id) {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json);
+            
             get_data(1);
             
         })
@@ -180,3 +187,9 @@ function delete_user(id) {
         }); 
 
 }
+
+search.addEventListener("click", () => {
+    let search_value = document.querySelector("#search_val").value;
+    get_data(1,search_value);
+    
+});

@@ -16,6 +16,21 @@
       </form>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            
+            <input type="text" name="search_val" id="search_val" placeholder="Busque algo">
+            <input type="button" value="Filtrar" id="search" class="btn btn-success">
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  
 
     <div class="row">
         <div class="col-md-12">
@@ -23,15 +38,8 @@
         </div>
         <nav aria-label="Page navigation example" >
             <ul class="pagination pagina_num">
-             
-              
-              
             </ul>
           </nav>
-       
-
-        
-        
     </div>
 @endsection
 

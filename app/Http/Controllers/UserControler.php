@@ -26,11 +26,16 @@ class UserControler extends Controller
         return response()->json("Registro hecho con exito");
     }
 
-    public function obtener_usuario()
+    public function obtener_usuario($search = "")
     {
 
-        $usuario = new Usuario();
-        $usuarios = $usuario->all();
+        
+        $usuarios = Usuario::all();
+        if ($search != "") {
+            $usuarios = Usuario::where('nombre', 'like', '%' . $search . '%')
+                        ->orWhere('apellidos', 'like', '%' . $search . '%')->get();
+            
+        }
 
         return response()->json($usuarios);
     }

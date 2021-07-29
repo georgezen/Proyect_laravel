@@ -30,7 +30,7 @@ Route::get('/triangulo', function () {
 //Route::get('/plantilla', [UserControler::class,'home']);
 Route::get('/user', [UserControler::class,'get_users']);
 
-Route::get('/get_user',[UserControler::class,'obtener_usuario'] );
+Route::get('/get_user/{search?}',[UserControler::class,'obtener_usuario'] );
 Route::post('/save', [UserControler::class,'save']);
 Route::get('/get_user_edit/{id}', [UserControler::class,'edit']);
 Route::post('/update', [UserControler::class,'update']);
