@@ -121,7 +121,15 @@ save.addEventListener("click", () => {
         apellido: apellido.value,
     };
 
+    if(data.nombre == "" || data.apellido == ""){
+        alert("No puede dejar campos vacios");
+        return false;
+    }
+
+    
+
     if (id_user.value != "") {
+
         ulr = "http://localhost/Proyect_laravel/public/update";
         data.id_user = id_user.value;
     }else{
